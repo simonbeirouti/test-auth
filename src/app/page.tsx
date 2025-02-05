@@ -4,8 +4,8 @@ import {socialLinks} from "@/src/data";
 import Features from "@/components/home/features";
 import Countdown from "@/components/home/countdown";
 import {Milestone} from "@/components/dashboard/milestone";
-import {FormMessage, Message} from "@/components/form-message";
-import {SubmitButton} from "@/components/submit-button";
+import {FormMessage, Message} from "@/src/components/home/form-message";
+import {SubmitButton} from "@/src/components/home/submit-button";
 import {Input} from "@/ui/input";
 import {signUpAction} from "@/src/app/actions";
 import {createClient} from "@/supabase/server";
@@ -51,12 +51,14 @@ export default async function App(props: {searchParams: Promise<Message>}) {
 								<social.icon className="w-6 h-6" />
 							</a>
 						))}
-						<Link
-							href="/dashboard"
-							className="block w-full px-6 py-3 text-center text-emerald-400 bg-transparent border border-emerald-400/50 hover:bg-emerald-400/10 transition-all duration-300 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed"
-						>
-							DASHBOARD
-						</Link>
+						{user && (
+							<Link
+								href="/dashboard"
+								className="block w-full px-6 py-3 text-center text-emerald-400 bg-transparent border border-emerald-400/50 hover:bg-emerald-400/10 transition-all duration-300 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed"
+							>
+								DASHBOARD
+							</Link>
+						)}
 					</div>
 				</div>
 
