@@ -26,6 +26,7 @@ export async function GameElements({user}: GameElementsProps) {
 				supabase
 					.from("referrals")
 					.select("*")
+					// @ts-ignore
 					.eq("referral_code", user.referral_code),
 			]);
 

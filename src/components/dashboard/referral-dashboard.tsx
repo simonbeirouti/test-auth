@@ -17,7 +17,8 @@ export async function ReferralDashboard({user}: ReferralDashboardProps) {
 				supabase.from("users").select("*").eq("id", user.id).single(),
 				supabase
 					.from("referrals")
-					.select("*")
+          .select("*")
+          // @ts-ignore
 					.eq("referral_code", user.referral_code),
 				supabase
 					.from("referral_challenges")
