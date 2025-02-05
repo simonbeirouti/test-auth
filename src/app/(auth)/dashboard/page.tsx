@@ -1,4 +1,4 @@
-import {Fragment} from "react";
+import { Fragment } from "react";
 import {GameElements} from "@/components/dashboard/game-elements";
 import {ReferralDashboard} from "@/components/dashboard/referral-dashboard";
 import {socialLinks} from "@/src/data";
@@ -28,9 +28,7 @@ export default async function DashboardPage() {
 	return (
 		<Fragment>
 			<div className="space-y-6">
-				{/* @ts-ignore */}
 				<ReferralDashboard user={user} />
-				{/* @ts-ignore */}
 				<GameElements user={user} />
 				<TopReferrers />
 
