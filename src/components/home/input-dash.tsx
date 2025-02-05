@@ -43,7 +43,7 @@ export default function InputDash() {
 
 			// Construct callback URL with referral code
 			let u = new URL(
-				`${process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://coin.fi"}/dashboard`
+				`${process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://coin.fi"}/auth/callback`
 			);
 			if (referralCode) {
 				console.timeLog("referalCode", referralCode);
