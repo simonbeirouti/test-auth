@@ -4,7 +4,13 @@ import {Milestone} from "./milestone";
 import {createClient} from "@/supabase/server";
 
 export async function GameElements({user}: GameElementsProps) {
-	const supabase = await createClient();
+  const supabase = await createClient();
+  
+  const {data: dashboardUser} = await supabase
+		.from("users")
+		.select("*")
+		.eq("id", user.id)
+    .single();
 
 	const fetchGameElements = async () => {
 		try {
@@ -26,8 +32,7 @@ export async function GameElements({user}: GameElementsProps) {
 				supabase
 					.from("referrals")
 					.select("*")
-					// @ts-ignore
-					.eq("referral_code", user.referral_code),
+					.eq("referral_code", dashboardUser.referral_code),
 			]);
 
 			if (
@@ -54,10 +59,7 @@ export async function GameElements({user}: GameElementsProps) {
 				badges,
 				userBadges,
 				milestones,
-				totalUsers: referrals.length,
-				userReferrals: referrals.filter(
-					(r) => r.referrer_id === user.id
-				).length,
+				totalUsers: referrals.length
 			};
 		} catch (err) {
 			console.error("Unexpected error during game data fetch:", err);
@@ -65,10 +67,10 @@ export async function GameElements({user}: GameElementsProps) {
 		}
 	};
 
-	const gameData = await fetchGameElements();
+  const gameData = await fetchGameElements();
 
 	const nextBadge = gameData?.badges.find(
-		(badge) => badge.required_referrals > (gameData?.userReferrals || 0)
+		(badge) => badge.required_referrals > (gameData?.totalUsers || 0)
 	);
 
 	const nextMilestone = gameData?.milestones.find(
@@ -92,18 +94,14 @@ export async function GameElements({user}: GameElementsProps) {
 					</div>
 					<div className="space-y-2">
 						<div className="flex justify-between text-sm text-emerald-400/70">
-							<span>{gameData?.userReferrals} referrals</span>
+							<span>{gameData?.totalUsers} referrals</span>
 							<span>{nextBadge.required_referrals} needed</span>
 						</div>
 						<div className="w-full bg-emerald-400/10 rounded-full h-2">
 							<div
 								className="bg-emerald-400 h-2 rounded-full transition-all duration-500"
 								style={{
-									width: `${
-										(gameData?.userReferrals ||
-											0 / nextBadge.required_referrals) *
-										100
-									}%`,
+									width: `${Math.min(((gameData?.totalUsers || 0) / nextBadge.required_referrals) * 100, 100)}%`,
 								}}
 							></div>
 						</div>
@@ -112,11 +110,7 @@ export async function GameElements({user}: GameElementsProps) {
 			)}
 
 			{nextMilestone && (
-				<Milestone
-					// @ts-ignore
-					milestone={nextMilestone}
-					totalUsers={gameData?.totalUsers || 0}
-				/>
+				<Milestone />
 			)}
 
 			<div className="bg-emerald-400/5 border border-emerald-400/20 rounded-lg p-4">
@@ -126,7 +120,7 @@ export async function GameElements({user}: GameElementsProps) {
 				<div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
 					{gameData?.badges.map((badge) => {
 						const earned =
-							gameData?.userReferrals >= badge.required_referrals;
+							gameData?.totalUsers >= badge.required_referrals;
 						return (
 							<div
 								key={badge.id}
