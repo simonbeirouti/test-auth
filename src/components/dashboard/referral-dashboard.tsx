@@ -5,65 +5,73 @@ import CopyButton from "./copy-button";
 import ShareButton from "./share-modal";
 
 export async function ReferralDashboard({user}: ReferralDashboardProps) {
-	const supabase = await createClient();
+  const supabase = await createClient();
+
+	const {data: dashboardUser} = await supabase
+		.from("users")
+		.select("*")
+		.eq("id", user.id)
+    .single();
 
 	const fetchUserAndReferrals = async () => {
 		try {
 			const [
-				{data: users, error},
+				{data: referralPoints, error: referralPointsError},
 				{data: referrals, error: referralsError},
 				{data: challenges, error: challengesError},
 			] = await Promise.all([
-				supabase.from("users").select("*").eq("id", user.id).single(),
 				supabase
+					.from("referral_points")
+          .select("*")
+          .eq("referral_code", dashboardUser.referral_code),
+        supabase
 					.from("referrals")
           .select("*")
-          // @ts-ignore
-					.eq("referral_code", user.referral_code),
+          .eq("referral_code", dashboardUser.referral_code),
 				supabase
 					.from("referral_challenges")
 					.select("*")
 					.order("end_date", {ascending: true}),
 			]);
 
-			if (error) {
-				console.error("Error fetching user data:", error);
-				return null;
-			}
+      if (referralPointsError) {
+        console.error("Error fetching referral points:", referralPointsError);
+        return null;
+      }
 
 			if (referralsError) {
 				console.error("Error fetching referrals:", referralsError);
 				return null;
-			}
+      }
 
 			if (challengesError) {
 				console.error("Error fetching challenges:", challengesError);
 				return null;
 			}
 
-			if (!users || !referrals || !challenges) {
+			if (!referralPoints || !referrals || !challenges) {
 				console.error("Missing data in response");
 				return null;
 			}
 
-			return {users, referrals, challenges};
+			return {referralPoints, referrals, challenges};
 		} catch (err) {
 			console.error("Unexpected error during data fetch:", err);
 			return null;
 		}
 	};
 
-	const userData = await fetchUserAndReferrals();
+  const userData = await fetchUserAndReferrals();
 
-	const dashUser = userData?.users;
 	const referrals = userData?.referrals;
+  const referralPoints = userData?.referralPoints;
 	const challenges = userData?.challenges;
 
 	const referralLink = `${
 		process.env.VERCEL_URL
 			? `https://${process.env.VERCEL_URL}`
 			: "http://localhost:3000"
-	}/?ref=${dashUser.referral_code}`;
+	}/?ref=${dashboardUser.referral_code}`;
 
 	const statsItems = [
 		{
@@ -71,7 +79,7 @@ export async function ReferralDashboard({user}: ReferralDashboardProps) {
 			label: "Total Referrals",
 			value: referrals?.length || 0,
 		},
-		{icon: Star, label: "Points Earned", value: dashUser.points || 0},
+		{icon: Star, label: "Points Earned", value: referralPoints?.[0]?.total_points || 0},
 	];
 
 	return (
