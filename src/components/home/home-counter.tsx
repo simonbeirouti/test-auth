@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { loadTotalUsers, loadMilestones } from "@/hooks/useBadgeStats";
 import { MilestoneType } from "@/types";
-import { Milestone } from "../_old/milestone";
+import { Milestone } from "@/components/dashboard/milestone";
 
 export default function HomeCounter() {
   const [timeLeft, setTimeLeft] = useState({

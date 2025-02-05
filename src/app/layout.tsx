@@ -4,7 +4,7 @@ import HeaderAuth from "@/components/layout/header-auth";
 import {ThemeSwitcher} from "@/components/layout/theme-switcher";
 import {Geist} from "next/font/google";
 import {ThemeProvider} from "next-themes";
-import Footer from "@/components/layout/Footer";
+import Footer from "@/components/layout/footer";
 
 const defaultUrl = process.env.VERCEL_URL
 	? `https://${process.env.VERCEL_URL}`

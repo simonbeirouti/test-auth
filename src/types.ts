@@ -1,26 +1,26 @@
 export interface User {
-  id: string;
-  email: string;
-  points: number;
-  referral_code: string;
+	id: string;
+	email: string;
+	points: number;
+	referral_code: string;
 }
 
 export interface MilestoneType {
-  id: string;
-  title: string;
-  description: string;
-  target_users: number;
-  reward_description: string;
+    id: string;
+    title: string;
+    description: string;
+    target_users: number;
+    reward_description: string;
 }
 
 export interface MilestoneProps {
-  milestone: MilestoneType;
-  totalUsers: number;
-  variant?: "default" | "compact";
+    milestone: MilestoneType;
+    totalUsers: number;
+    variant?: 'default' | 'compact';
 }
 
 export interface GameElementsProps {
-  user: User;
+	user: User;
 }
 
 export interface Badge {
@@ -40,27 +40,27 @@ export interface UserBadge {
 }
 
 export interface ReferralStats {
-  totalReferrals: number;
-  pointsEarned: number;
-  referralCode: string;
-  chainSize: number;
-  shareCount: number;
+	totalReferrals: number;
+	pointsEarned: number;
+	referralCode: string;
+	chainSize: number;
+	shareCount: number;
 }
 
 export interface Challenge {
-  id: string;
-  title: string;
-  description: string;
-  start_date: string;
-  end_date: string;
-  reward_multiplier: number;
-  min_referrals: number;
+	id: string;
+	title: string;
+	description: string;
+	start_date: string;
+	end_date: string;
+	reward_multiplier: number;
+	min_referrals: number;
 }
 
 export interface ShareActivity {
-  platform: string;
-  points_earned: number;
-  shared_at: string;
+	platform: string;
+	points_earned: number;
+	shared_at: string;
 }
 
 export interface ReferralDashboardProps {
@@ -69,10 +69,61 @@ export interface ReferralDashboardProps {
 
 export interface ToastProps {
   message: string;
-  type: "success" | "error" | "info";
+  type: 'success' | 'error' | 'info';
 }
 
 export interface ShareModalProps {
   onClose: () => void;
   referralLink: string;
+}
+
+export interface CompletionDialogProps {
+	time: string;
+	onTryAgain: () => void;
+	onCustomize: (password: string, bearing: BearingConfig) => void;
+}
+
+export interface BearingConfig {
+	up: { color: "yellow" | "green" | "blue" | "red"; key: "w" | "s" | "a" | "d" };
+	down: { color: "yellow" | "green" | "blue" | "red"; key: "w" | "s" | "a" | "d" };
+	left: { color: "yellow" | "green" | "blue" | "red"; key: "w" | "s" | "a" | "d" };
+	right: { color: "yellow" | "green" | "blue" | "red"; key: "w" | "s" | "a" | "d" };
+}
+
+export interface StepContent {
+	title: string;
+	description: string;
+	fields?: {
+		id: string;
+		label: string;
+		type: "text" | "color" | "key" | "navigation";
+		placeholder?: string;
+		maxLength?: number;
+	}[];
+}
+
+export interface MobiusGameProps {
+	password: string;
+	bearing: BearingConfig;
+	startingLevel?: number;
+	isTutorial?: boolean;
+	onCustomize?: (newPassword: string, newBearing: BearingConfig) => void;
+}
+
+export interface Timer {
+	minutes: number;
+	seconds: number;
+	milliseconds: number;
+}
+
+export interface ContactFormData {
+	firstName: string;
+	email: string;
+	message: string;
+}
+
+export interface EmailTemplateProps {
+  firstName: string;
+  email: string;
+  message: string;
 }
