@@ -9,6 +9,25 @@ import {
   Send,
 } from "lucide-react";
 
+export const dashboardLinks = [
+  {
+    label: "Home",
+    href: "/dashboard",
+    description: "View your stats and rewards"
+  },
+  {
+    label: "Game",
+    href: "/dashboard/game",
+    description: "Play the memory game" 
+  },
+  {
+    label: "Setup",
+    href: "/dashboard/onboarding",
+    description: "Create new bearings and password"
+  }
+];
+
+
 export const socialLinks = [
   {
     icon: Twitter,
