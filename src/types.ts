@@ -1,13 +1,4 @@
-// TODO: Load user type from supabase
-export interface User {
-	id: string;
-	email: string;
-	phone: string;
-	points: number;
-	referral_code: string;
-	total_referrals: string;
-	referral_points: string;
-}
+import { User } from '@supabase/supabase-js';
 
 export interface MilestoneType {
     id: string;
