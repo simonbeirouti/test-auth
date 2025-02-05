@@ -78,3 +78,16 @@ GROUP BY
 
 -- Enable Row-Level Security (RLS) on the referrals table
 ALTER TABLE referrals ENABLE ROW LEVEL SECURITY;
+
+-- Add policy to allow public count of users
+CREATE POLICY "Allow public count" ON users
+FOR SELECT
+TO public
+USING (true);
+
+-- Create view for public user stats
+CREATE OR REPLACE VIEW public_user_stats AS
+SELECT COUNT(*) as total_users FROM users;
+
+-- Grant access to the view to the anonymous role
+GRANT SELECT ON public_user_stats TO anon;

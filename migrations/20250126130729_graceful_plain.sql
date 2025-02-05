@@ -85,3 +85,14 @@ INSERT INTO milestones (title, description, target_users, reward_description) VA
   ('Community Launch', 'Reaching 5,000 active users', 5000, 'Special NFT drop for all members'),
   ('Mass Adoption', 'Growing to 15,000 users', 15000, 'Advanced platform features'),
   ('Global Impact', 'Building a community of 50,000', 50000, 'Governance token distribution');
+
+-- Create a view for the next milestone
+CREATE OR REPLACE VIEW public_next_milestone AS
+SELECT m.*
+FROM milestones m
+WHERE m.target_users > (SELECT COUNT(*) FROM users)
+ORDER BY m.target_users ASC
+LIMIT 1;
+
+-- Anonymous users can only see through the view
+GRANT SELECT ON public_next_milestone TO anon;
