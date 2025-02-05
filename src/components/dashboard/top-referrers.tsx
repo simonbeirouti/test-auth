@@ -7,7 +7,7 @@ export default async function TopReferrers() {
 	const fetchTopReferrers = async () => {
 		try {
 			const referrers = await supabase
-				.from("referrals_points")
+				.from("referral_points")
 				.select("referral_code, total_points")
 				.order("total_points", {ascending: false})
 				.limit(5);
@@ -18,16 +18,7 @@ export default async function TopReferrers() {
 		}
 	};
 
-	const topReferrers = await fetchTopReferrers();
-	console.log(topReferrers);
-
-	const users = [
-		{username: "Player1", points: 1250},
-		{username: "Player2", points: 980},
-		{username: "Player3", points: 750},
-		{username: "Player4", points: 520},
-		{username: "Player5", points: 340},
-	];
+    const topReferrers = await fetchTopReferrers();
 
 	return (
 		<div className="bg-black border border-emerald-400/20 rounded-lg p-4">
@@ -37,10 +28,11 @@ export default async function TopReferrers() {
 				</h3>
 				<Trophy className="w-6 h-6 text-emerald-400" />
 			</div>
-			<div className="space-y-4 mb-6">
-				{users.map(
+            <div className="space-y-4 mb-6">
+                {/* @ts-ignore */}
+				{topReferrers?.data?.map(
 					(
-						user: {username: string; points: number},
+						user: {referral_code: string; total_points: number},
 						index: number
 					) => (
 						<div
@@ -53,12 +45,12 @@ export default async function TopReferrers() {
 								</div>
 								<div>
 									<div className="text-emerald-400 font-bold">
-										{user.username}
+										{user.referral_code}
 									</div>
 								</div>
 							</div>
 							<div className="text-emerald-400 font-bold">
-								{user.points} points
+								{user.total_points} points
 							</div>
 						</div>
 					)
