@@ -6,6 +6,7 @@ import {headers} from "next/headers";
 
 export const signUpAction = async (formData: FormData) => {
 	const email = formData.get("email")?.toString();
+	const refCode = formData.get("refCode")?.toString();
 	const supabase = await createClient();
 	const origin = (await headers()).get("origin");
 
@@ -16,7 +17,7 @@ export const signUpAction = async (formData: FormData) => {
 	const {error} = await supabase.auth.signInWithOtp({
 		email,
 		options: {
-			emailRedirectTo: `${origin}/auth/callback`,
+			emailRedirectTo: `${origin}/auth/callback${refCode ? `?ref=${refCode}` : ""}`,
 		},
 	});
 

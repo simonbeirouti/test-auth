@@ -1,4 +1,4 @@
-import {Fragment} from "react";
+import { Fragment } from "react";
 import {Terminal} from "lucide-react";
 import {socialLinks} from "@/src/data";
 import Features from "@/components/home/features";
@@ -10,16 +10,17 @@ import {Input} from "@/ui/input";
 import {signUpAction} from "@/src/app/actions";
 import {createClient} from "@/supabase/server";
 import Link from "next/link";
+import PathInput from "@/components/home/path-input";
 
-export default async function App(props: {searchParams: Promise<Message>}) {
-	const supabase = await createClient();
-
+export default async function App(props: { searchParams: Promise<Message> }) {
+  const supabase = await createClient();
+  
 	const {
-		data: {user},
+    data: {user},
 	} = await supabase.auth.getUser();
-
-	const searchParams = await props.searchParams;
-
+	
+  const searchParams = await props.searchParams;
+  
 	if ("message" in searchParams) {
 		return (
 			<div className="w-full flex-1 flex items-center h-screen sm:max-w-md justify-center gap-2 p-4">
@@ -85,15 +86,16 @@ export default async function App(props: {searchParams: Promise<Message>}) {
 								<form className="space-y-4">
 									<Input
 										name="email"
-										pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+										// pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
 										className="w-full px-4 py-3 bg-transparent border border-emerald-400/30 rounded text-emerald-400 placeholder-emerald-400/30 focus:outline-none focus:border-emerald-400/60 transition-all duration-300"
 										title="Please enter a valid email address without aliases"
-										placeholder="you@example.com"
+										placeholder="youemail@example.com"
 										required
-									/>
+                  />
+                  <PathInput />
 									<SubmitButton
 										formAction={signUpAction}
-										pendingText="Signing up..."
+										pendingText="Acessing..."
 										className="w-full px-6 py-3 text-emerald-400 bg-transparent border border-emerald-400/50 hover:bg-emerald-400/10 transition-all duration-300 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed"
 									>
 										GET EARLY ACCESS
