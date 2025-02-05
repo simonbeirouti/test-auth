@@ -10,8 +10,8 @@ export default async function TopReferrers() {
 				.from("referral_points")
 				.select("referral_code, total_points")
 				.order("total_points", {ascending: false})
-				.limit(5);
-			return referrers || [];
+				.limit(10);
+			return referrers.data || [];
 		} catch (error) {
 			console.error("Failed to fetch top referrers:", error);
 			return [];
@@ -19,6 +19,17 @@ export default async function TopReferrers() {
 	};
 
     const topReferrers = await fetchTopReferrers();
+
+    const randomNames = [
+        '1a2b3c4d5e', 'f6e5d4c3b2', '9a8b7c6d5e', '1f2e3d4c5b',
+        'a1b2c3d4e5', '5e4d3c2b1a', 'b5c4d3e2f1', '2a3b4c5d6e',
+        'f1e2d3c4b5', '6d5e4f3a2b'
+    ];
+
+    const topReferrersWithRandomNames = topReferrers.map((user, index) => ({
+        ...user,
+        referral_code: randomNames[index] || `${index + 1}`
+    }));
 
 	return (
 		<div className="bg-black border border-emerald-400/20 rounded-lg p-4">
@@ -29,15 +40,14 @@ export default async function TopReferrers() {
 				<Trophy className="w-6 h-6 text-emerald-400" />
 			</div>
             <div className="space-y-4 mb-6">
-                {/* @ts-ignore */}
-				{topReferrers?.data?.map(
+				{topReferrersWithRandomNames?.map(
 					(
 						user: {referral_code: string; total_points: number},
 						index: number
 					) => (
 						<div
 							key={index}
-							className="flex items-center justify-between p-3 bg-emerald-400/5 rounded-lg"
+							className="flex items-center justify-between p-3 bg-emerald-400/20 rounded-lg"
 						>
 							<div className="flex items-center gap-3">
 								<div className="w-8 h-8 rounded-full bg-emerald-400/20 flex items-center justify-center">
