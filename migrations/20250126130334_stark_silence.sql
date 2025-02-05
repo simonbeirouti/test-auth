@@ -27,7 +27,7 @@ CREATE POLICY "Authenticated can create a user"
   WITH CHECK (true);
 
 -- Create referrals table to track referral relationships
-CREATE OR REPLACE TABLE IF NOT EXISTS referrals (
+CREATE TABLE IF NOT EXISTS referrals (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id uuid NOT NULL REFERENCES users(id) DEFAULT auth.uid(),
   referral_code text NOT NULL REFERENCES users(referral_code),
@@ -67,7 +67,7 @@ EXECUTE FUNCTION enforce_referral_points();
 
 
 -- Create view to summarize referral points by referral code
-CREATE IF NOT EXISTS VIEW referral_points AS
+CREATE OR REPLACE VIEW referral_points AS
 SELECT 
     r.referral_code,
     SUM(r.points_awarded) AS total_points
@@ -78,7 +78,3 @@ GROUP BY
 
 -- Enable Row-Level Security (RLS) on the referrals table
 ALTER TABLE referrals ENABLE ROW LEVEL SECURITY;
-
--- Allow anyone to read the referral_points view
-CREATE POLICY select_referral_points ON referrals
-FOR SELECT USING (true);
