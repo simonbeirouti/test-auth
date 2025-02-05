@@ -38,7 +38,7 @@ export default async function App(props: {searchParams: Promise<Message>}) {
 							COINFI
 						</h1>
 					</div>
-					<div className="flex gap-4">
+					<div className="flex justify-end items-center flex-row gap-4">
 						{socialLinks.map((social, i) => (
 							<a
 								key={i}
@@ -51,6 +51,12 @@ export default async function App(props: {searchParams: Promise<Message>}) {
 								<social.icon className="w-6 h-6" />
 							</a>
 						))}
+						<Link
+							href="/dashboard"
+							className="block w-full px-6 py-3 text-center text-emerald-400 bg-transparent border border-emerald-400/50 hover:bg-emerald-400/10 transition-all duration-300 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed"
+						>
+							DASHBOARD
+						</Link>
 					</div>
 				</div>
 
@@ -58,8 +64,8 @@ export default async function App(props: {searchParams: Promise<Message>}) {
 					<div>
 						<div className="space-y-6">
 							<h2 className="text-4xl font-bold text-emerald-400 leading-tight">
-								Own the Future of Finance: Share, Refer, and Earn
-								with Coin Fi
+								Own the Future of Finance: Share, Refer, and
+								Earn with Coin Fi
 							</h2>
 							<p className="text-lg text-emerald-400/80">
 								Join the revolution and invite your friends to
@@ -73,7 +79,7 @@ export default async function App(props: {searchParams: Promise<Message>}) {
 								<Milestone />
 							</div>
 
-							{!user ? (
+							{!user && (
 								<form className="space-y-4">
 									<Input
 										name="email"
@@ -92,13 +98,6 @@ export default async function App(props: {searchParams: Promise<Message>}) {
 									</SubmitButton>
 									<FormMessage message={searchParams} />
 								</form>
-							) : (
-								<Link
-									href="/dashboard"
-									className="block w-full px-6 py-3 text-center text-emerald-400 bg-transparent border border-emerald-400/50 hover:bg-emerald-400/10 transition-all duration-300 rounded focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed"
-								>
-									ACCESS DASHBOARD
-								</Link>
 							)}
 						</div>
 					</div>
