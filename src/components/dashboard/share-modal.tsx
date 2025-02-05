@@ -2,7 +2,7 @@
 
 import { Copy, Twitter, Facebook, Linkedin } from "lucide-react";
 import { useState } from "react";
-import { ShareModalProps } from "@/types";
+import { ShareModalProps } from "@/src/types";
 
 export function ShareModal({ onClose, referralLink }: ShareModalProps) {
   const [showPlatformOptions, setShowPlatformOptions] = useState<string | null>(

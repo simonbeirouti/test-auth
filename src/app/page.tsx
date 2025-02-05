@@ -1,13 +1,13 @@
 import {Fragment} from "react";
 import {Terminal} from "lucide-react";
-import {socialLinks} from "@/data";
+import {socialLinks} from "@/src/data";
 import Features from "@/components/home/features";
 import Countdown from "@/components/home/countdown";
 import {Milestone} from "@/components/dashboard/milestone";
 import {FormMessage, Message} from "@/components/form-message";
 import {SubmitButton} from "@/components/submit-button";
 import {Input} from "@/ui/input";
-import {signUpAction} from "@/app/actions";
+import {signUpAction} from "@/src/app/actions";
 import {createClient} from "@/supabase/server";
 import Link from "next/link";
 

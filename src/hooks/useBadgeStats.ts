@@ -1,7 +1,7 @@
 "use client";
 
 import { createClient } from "@/supabase/client";
-import { User } from "@/types";
+import { User } from "@/src/types";
 
 const supabase = createClient()
 

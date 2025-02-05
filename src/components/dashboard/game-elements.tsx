@@ -9,7 +9,7 @@ import {
   loadTotalUsers,
 } from "@/hooks/useBadgeStats";
 import { loadReferralStats } from "@/hooks/useUserStats";
-import { GameElementsProps, Badge, MilestoneType, UserBadge } from "@/types";
+import { GameElementsProps, Badge, MilestoneType, UserBadge } from "@/src/types";
 import { Milestone } from "./milestone";
 
 export function GameElements({ user }: GameElementsProps) {

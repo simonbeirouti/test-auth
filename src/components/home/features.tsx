@@ -1,7 +1,7 @@
 "use client";
 
 import {useState} from "react";
-import {features} from "@/data";
+import {features} from "@/src/data";
 
 export default function Features() {
 	const [selectedFeature, setSelectedFeature] = useState<number | null>(null);

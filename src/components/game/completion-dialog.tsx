@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowUp, ArrowDown, ArrowLeft, ArrowRight } from "lucide-react";
-import { BearingConfig, CompletionDialogProps, StepContent } from "@/types";
+import { BearingConfig, CompletionDialogProps, StepContent } from "@/src/types";
 import { DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/ui/dialog";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";

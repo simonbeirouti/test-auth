@@ -72,7 +72,7 @@ import {
 	CheckCircle,
 	XCircle,
 } from "lucide-react";
-import {MobiusGameProps} from "@/types";
+import {MobiusGameProps} from "@/src/types";
 
 // Add this shuffle function at the top of the component
 const rotateArray = <T,>(array: T[]): T[] => {

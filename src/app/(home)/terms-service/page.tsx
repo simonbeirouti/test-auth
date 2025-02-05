@@ -1,4 +1,4 @@
-import { termsOfService } from "@/data";
+import { termsOfService } from "@/src/data";
 
 export default function TermsService() {
   return (

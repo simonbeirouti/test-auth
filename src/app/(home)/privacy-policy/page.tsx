@@ -1,4 +1,4 @@
-import { privacyPolicy } from "@/data";
+import { privacyPolicy } from "@/src/data";
 
 export default function PrivacyPolicy() {
   return (
